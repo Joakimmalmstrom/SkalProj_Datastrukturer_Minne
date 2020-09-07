@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Dynamic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -10,6 +14,13 @@ namespace SkalProj_Datastrukturer_Minne
         /// <param name="args"></param>
         static void Main()
         {
+
+            // Question 1: Value types are always stored in the stack. Reference Types are stored in the heap.
+            // Example: int value = 3; || Allocates memory on the stack
+            // Example: Human human = new Human(string name, int age) || Human class is stored on the heap with its parameters. 
+            // Objects that's allocated on the stack are only available inside of a method, while Objects on the stack can be accessed from anywhere.
+            // Question 2: Value types are int, bool, float etc || Reference Types are classes, interface, delegates etc. Value types are allocated on the stack while Reference types are allocated on the heap.
+            // Question 3: In Method ReturnValue2 both x and y share the same property. They come from the same class and y sets MyValue to 4. x inherits MyValue from y when declaring y = x;.
 
             while (true)
             {
@@ -71,13 +82,58 @@ namespace SkalProj_Datastrukturer_Minne
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
             */
+            Console.Clear();
+            bool quit = false;
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+            List<string> theList = new List<string>();
+            Console.WriteLine("Add a name by typing '+' then the name");
+            Console.WriteLine("Remove a name by typing '-' then the name");
 
-            //switch(nav){...}
+            do
+            {
+                string input = Console.ReadLine();
+                char nav = input[0];
+                string value = input.Substring(1);
+
+                switch (nav)
+                {
+                    case '+':
+                        theList.Add(value);
+                        Console.WriteLine(theList.Count);
+                        break;
+
+                    case '-':
+                        var name = theList
+                            .Where(n => n == value);
+
+                        if (theList.Remove(name.FirstOrDefault()))
+                        {
+                            Console.WriteLine($"{value} removed from the list");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{value} was not in the list");
+                        }
+
+                        Console.WriteLine(theList.Count);
+
+                        break;
+
+                    case '0':
+                        quit = true;
+                        Console.Clear();
+                        break;
+
+                    default:
+                        Console.WriteLine("Use '+' or '-'");
+                        break;
+                }
+
+            } while (!quit);
+
+
+
+
         }
 
         /// <summary>
