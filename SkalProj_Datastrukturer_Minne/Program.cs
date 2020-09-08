@@ -4,6 +4,7 @@ using System.Linq;
 using System.Dynamic;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -53,7 +54,7 @@ namespace SkalProj_Datastrukturer_Minne
                         ExamineStack();
                         break;
                     case '4':
-                        CheckParanthesis();
+                        ///*CheckParanthesis*/();
                         break;
                     /*
                      * Extend the menu to include the recursive 
@@ -216,6 +217,55 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+
+            // Question 1: Then the first person that gets added to the line is the last one to go. The queue system gets reversed.
+
+            Console.Clear();
+            bool quit = false;
+
+            Console.WriteLine("Type '+' and then the text you want to reverse");
+            Console.WriteLine("Type '0' to return to Menu");
+
+            do
+            {
+                string input = Console.ReadLine();
+                char nav = input[0];
+                char[] value = input.Substring(1).ToCharArray();
+
+                switch (nav)
+                {
+                    case '+':
+                        ReverseText(value);
+                        break;
+
+                    case '0':
+                        quit = true;
+                        Console.Clear();
+                        break;
+
+                    default:
+                        Console.WriteLine("Use '+' to type a name");
+                        break;
+                }
+
+            } while (!quit);
+        }
+        private static void ReverseText(char[] text)
+        {
+            Stack stack = new Stack();
+
+            foreach (var c in text)
+            {
+                stack.Push(c);
+            }
+
+            while (stack.Count != 0)
+            {
+                Console.Write($"{stack.Pop()}");
+            }
+
+            Console.WriteLine();
+
         }
 
         static void CheckParanthesis()
@@ -227,7 +277,7 @@ namespace SkalProj_Datastrukturer_Minne
              */
 
         }
-
     }
 }
+
 
