@@ -5,6 +5,7 @@ using System.Dynamic;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Diagnostics.Contracts;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -54,7 +55,7 @@ namespace SkalProj_Datastrukturer_Minne
                         ExamineStack();
                         break;
                     case '4':
-                        ///*CheckParanthesis*/();
+                        CheckParanthesis();
                         break;
                     /*
                      * Extend the menu to include the recursive 
@@ -276,6 +277,77 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
 
+            Console.Clear();
+            bool quit = false;
+
+            Console.WriteLine("Type '+' and then your text with checked paranthesis");
+            Console.WriteLine("Type '0' to return to Menu");
+
+            do
+            {
+                string input = Console.ReadLine();
+                char nav = input[0];
+                string value = input.Substring(1);
+
+                switch (nav)
+                {
+                    case '+':
+                        if (value.Length == 0)
+                        {
+                            Console.WriteLine($"Type in text");
+                        }
+                        else if (isWellFormatted(value))
+                        {
+                            Console.WriteLine($"{value} is well formatted");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{value} is NOT well formatted");
+                        }
+                        break;
+
+                    case '0':
+                        quit = true;
+                        Console.Clear();
+                        break;
+
+                    default:
+                        Console.WriteLine("Use '+' followed by a text of your choice");
+                        break;
+                }
+
+            } while (!quit);
+        }
+
+        public static bool isWellFormatted(string text)
+        {
+            Stack<char> lastOpen = new Stack<char>();
+
+            foreach (var c in text)
+            {
+                switch (c)
+                {
+                    case ')':
+                        if (lastOpen.Count == 0 || lastOpen.Pop() != '(') return false;
+                        break;
+                    case ']':
+                        if (lastOpen.Count == 0 || lastOpen.Pop() != '[') return false;
+                        break;
+                    case '}':
+                        if (lastOpen.Count == 0 || lastOpen.Pop() != '{') return false;
+                        break;
+                    case '>': 
+                        if (lastOpen.Count == 0 || lastOpen.Pop() != '<') return false;
+                        break;
+
+                    case '(': lastOpen.Push(c); break;
+                    case '[': lastOpen.Push(c); break;
+                    case '{': lastOpen.Push(c); break;
+                    case '<': lastOpen.Push(c); break;
+                }
+            }
+            if (lastOpen.Count == 0) return true;
+            else return false;
         }
     }
 }
