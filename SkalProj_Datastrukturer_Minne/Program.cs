@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Dynamic;
 using System.Security.Cryptography.X509Certificates;
+using System.Collections;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -82,12 +83,21 @@ namespace SkalProj_Datastrukturer_Minne
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
             */
+
+            // Question 1: When the count is equals to its capacity.
+            // Question 2: It doubles the current capacity.
+            // Question 3: It only allocates more memory when count exceeds its capacity.
+            // Question 4: No it does not. It needs a Trim method to scale down the capacity.
+            // Question 5: When you know the number of elements needed.
+
             Console.Clear();
             bool quit = false;
 
             List<string> theList = new List<string>();
             Console.WriteLine("Add a name by typing '+' then the name");
             Console.WriteLine("Remove a name by typing '-' then the name");
+            Console.WriteLine("Type '0' to return to Menu");
+
 
             do
             {
@@ -99,7 +109,10 @@ namespace SkalProj_Datastrukturer_Minne
                 {
                     case '+':
                         theList.Add(value);
-                        Console.WriteLine(theList.Count);
+
+                        // Count && Capacity of the List
+                        Console.WriteLine($"List Capacity: {theList.Capacity}");
+                        Console.WriteLine($"List Count: {theList.Count}");
                         break;
 
                     case '-':
@@ -115,7 +128,9 @@ namespace SkalProj_Datastrukturer_Minne
                             Console.WriteLine($"{value} was not in the list");
                         }
 
-                        Console.WriteLine(theList.Count);
+                        // Count && Capacity of the List
+                        Console.WriteLine($"List Capacity: {theList.Capacity}");
+                        Console.WriteLine($"List Count: {theList.Count}");
 
                         break;
 
@@ -130,10 +145,6 @@ namespace SkalProj_Datastrukturer_Minne
                 }
 
             } while (!quit);
-
-
-
-
         }
 
         /// <summary>
@@ -146,6 +157,53 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+
+            Console.Clear();
+            bool quit = false;
+
+            Queue myQueue = new Queue();
+            Console.WriteLine("Add a person to the queue by typing '+' then the name");
+            Console.WriteLine("Remove a person from the queue by typing '-'");
+            Console.WriteLine("Type '0' to return to Menu");
+
+            Console.WriteLine("\nICA has opened and the checkout is empty!");
+
+            do
+            {
+                string input = Console.ReadLine();
+                char nav = input[0];
+                string value = input.Substring(1);
+
+                switch (nav)
+                {
+                    case '+':
+                        myQueue.Enqueue(value);
+
+                        Console.WriteLine($"{value} stands in line.");
+                        break;
+
+                    case '-':
+                        if (myQueue.Count > 0)
+                        {
+                            Console.WriteLine($"{myQueue.Dequeue()} gets expedited and leaves the line.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("The line is currently empty");
+                        }
+                        break;
+
+                    case '0':
+                        quit = true;
+                        Console.Clear();
+                        break;
+
+                    default:
+                        Console.WriteLine("Use '+' or '-'");
+                        break;
+                }
+
+            } while (!quit);
         }
 
         /// <summary>
