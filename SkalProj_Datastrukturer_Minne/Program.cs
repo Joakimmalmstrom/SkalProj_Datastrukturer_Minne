@@ -32,6 +32,7 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParanthesis"
+                    + "\n5. RecursiveEven"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -57,6 +58,10 @@ namespace SkalProj_Datastrukturer_Minne
                     case '4':
                         CheckParanthesis();
                         break;
+                    case '5':
+                        RecursiveEvenApp();
+                        break;
+                        
                     /*
                      * Extend the menu to include the recursive 
                      * and iterative exercises.
@@ -348,6 +353,44 @@ namespace SkalProj_Datastrukturer_Minne
             }
             if (lastOpen.Count == 0) return true;
             else return false;
+        }
+
+        public static void RecursiveEvenApp()
+        {
+            Console.Clear();
+            bool quit = false;
+
+            Console.WriteLine("Enter a number");
+            Console.WriteLine("Type 'Q' or 'q' to exit the application");
+
+            do
+            {
+                string input = Console.ReadLine();
+
+                switch (input)
+                {
+                    case "Q":
+                        quit = true;
+                        Console.Clear();
+                        break;
+                    case "q":
+                        quit = true;
+                        Console.Clear();
+                        break;
+                    default:
+                        Console.WriteLine(RecursiveEven(int.Parse(input)));
+                        break;
+                }
+            } while (!quit);
+        }
+
+        public static int RecursiveEven(int n)
+        {
+            if (n == 1)
+            {
+                return n;
+            }
+            return (RecursiveEven(n - 1) + 3);
         }
     }
 }
