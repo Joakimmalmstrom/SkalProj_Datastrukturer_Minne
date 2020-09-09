@@ -31,8 +31,9 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
-                    + "\n4. CheckParanthesis"
-                    + "\n5. RecursiveEven"
+                    + "\n4. Check Paranthesis"
+                    + "\n5. Recursive Even & Fibonacci Sequence"
+                    + "\n6. Iterative Odd"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -61,7 +62,10 @@ namespace SkalProj_Datastrukturer_Minne
                     case '5':
                         RecursiveEvenApp();
                         break;
-                        
+                    case '6':
+                        IterativeOddApp();
+                        break;
+
                     /*
                      * Extend the menu to include the recursive 
                      * and iterative exercises.
@@ -361,7 +365,62 @@ namespace SkalProj_Datastrukturer_Minne
             bool quit = false;
 
             Console.WriteLine("Enter a number");
-            Console.WriteLine("Type 'Q' or 'q' to exit the application");
+            Console.WriteLine("Type 'F' for Fibonacci Sequence");
+            Console.WriteLine("Type 'R' for Recursive Even Sequence");
+            Console.WriteLine("Type 'Q' to exit the application");
+
+            do
+            {
+                string input = Console.ReadLine();
+
+                switch (input)
+                {
+                    case "F":
+                        Console.WriteLine("Enter a number for fibonacci sequence");
+                        int fInput = int.Parse(Console.ReadLine());
+                        Console.WriteLine(Fibonacci(fInput));
+                        break;
+                    case "R":
+                        Console.WriteLine("Enter a number for recursive even");
+                        int rInput = int.Parse(Console.ReadLine());
+                        Console.WriteLine(RecursiveEven(rInput));
+                        break;
+                    case "Q":
+                        quit = true;
+                        Console.Clear();
+                        break;
+                    default:
+                        Console.WriteLine("Enter a valid command");
+                        break;
+                }
+            } while (!quit);
+        }
+
+        public static int RecursiveEven(int n)
+        {
+            if (n == 0)
+            {
+                return n;
+            }
+            return (RecursiveEven(n - 1) + 3);
+        }
+
+        public static int Fibonacci(int n)
+        {
+            if (n < 2)
+            {
+                return n;
+            }
+            return (Fibonacci(n - 1) + Fibonacci(n - 2));
+        }
+
+        public static void IterativeOddApp()
+        {
+            Console.Clear();
+            bool quit = false;
+
+            Console.WriteLine("Enter a number");
+            Console.WriteLine("Type 'Q' to exit the application");
 
             do
             {
@@ -373,24 +432,24 @@ namespace SkalProj_Datastrukturer_Minne
                         quit = true;
                         Console.Clear();
                         break;
-                    case "q":
-                        quit = true;
-                        Console.Clear();
-                        break;
                     default:
-                        Console.WriteLine(RecursiveEven(int.Parse(input)));
+                        Console.WriteLine((IterativeOdd(int.Parse(input))));
                         break;
                 }
             } while (!quit);
         }
 
-        public static int RecursiveEven(int n)
+        public static int IterativeOdd(int n)
         {
-            if (n == 1)
+            if (n == 0) return 1;
+
+            int result = 1;
+
+            for (int i = 0; i <= n; i++)
             {
-                return n;
+                result += 2;
             }
-            return (RecursiveEven(n - 1) + 3);
+            return result;
         }
     }
 }
