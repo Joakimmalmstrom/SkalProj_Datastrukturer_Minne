@@ -27,24 +27,10 @@ namespace SkalProj_Datastrukturer_Minne
 
             while (true)
             {
-                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
-                    + "\n1. Examine a List"
-                    + "\n2. Examine a Queue"
-                    + "\n3. Examine a Stack"
-                    + "\n4. Check Paranthesis"
-                    + "\n5. Recursive Even & Fibonacci Sequence"
-                    + "\n6. Iterative Odd"
-                    + "\n0. Exit the application");
-                char input = ' '; //Creates the character input to be used with the switch-case below.
-                try
-                {
-                    input = Console.ReadLine()[0]; //Tries to set input to the first char in an input line
-                }
-                catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
-                {
-                    Console.Clear();
-                    Console.WriteLine("Please enter some input!");
-                }
+                MainMenuInfo();
+
+                char input = InputCheck();
+
                 switch (input)
                 {
                     case '1':
@@ -66,10 +52,6 @@ namespace SkalProj_Datastrukturer_Minne
                         IterativeOddApp();
                         break;
 
-                    /*
-                     * Extend the menu to include the recursive 
-                     * and iterative exercises.
-                     */
                     case '0':
                         Environment.Exit(0);
                         break;
@@ -78,6 +60,18 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
                 }
             }
+        }
+
+        private static void MainMenuInfo()
+        {
+            Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
+                + "\n1. Examine a List"
+                + "\n2. Examine a Queue"
+                + "\n3. Examine a Stack"
+                + "\n4. Check Paranthesis"
+                + "\n5. Recursive Even & Fibonacci Sequence"
+                + "\n6. Iterative Odd"
+                + "\n0. Exit the application");
         }
 
         /// <summary>
@@ -102,28 +96,15 @@ namespace SkalProj_Datastrukturer_Minne
             // Question 5: When you know the number of elements needed.
 
             Console.Clear();
-            ExamineList examine = new ExamineList();
 
+            ExamineList examine = new ExamineList();
             bool quit = false;
-            
+
             do
             {
-                Console.WriteLine("Type '+' to add a name to the list");
-                Console.WriteLine("Type '-' to remove a name from the list");
-                Console.WriteLine("----------------------------------");
-                Console.WriteLine("Type 'Q' to return to Menu");
+                ExamineListInfo();
 
-                char input = ' ';
-
-                try
-                {
-                    input = Console.ReadLine()[0];
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Please enter some input!");
-                }
+                char input = InputCheck();
 
                 switch (input)
                 {
@@ -150,6 +131,14 @@ namespace SkalProj_Datastrukturer_Minne
             } while (!quit);
         }
 
+        private static void ExamineListInfo()
+        {
+            Console.WriteLine("Type '+' to add a name to the list");
+            Console.WriteLine("Type '-' to remove a name from the list");
+            Console.WriteLine("----------------------------------");
+            Console.WriteLine("Type 'Q' to return to Menu");
+        }
+
         /// <summary>
         /// Examines the datastructure Queue
         /// </summary>
@@ -162,40 +151,31 @@ namespace SkalProj_Datastrukturer_Minne
             */
 
             Console.Clear();
+
+            ExamineQueue examineQueue = new ExamineQueue();
             bool quit = false;
-
-            Queue myQueue = new Queue();
-            Console.WriteLine("Add a person to the queue by typing '+' then the name");
-            Console.WriteLine("Remove a person from the queue by typing '-'");
-            Console.WriteLine("Type '0' to return to Menu");
-
-            Console.WriteLine("\nICA has opened and the checkout is empty!");
 
             do
             {
-                string input = Console.ReadLine();
-                string value = input.Substring(1);
+                ExamineQueueInfo();
+
+                char input = InputCheck();
 
                 switch (input)
                 {
-                    case "+":
-                        myQueue.Enqueue(value);
+                    case '+':
+                        examineQueue.AddToQueue();
 
-                        Console.WriteLine($"{value} stands in line.");
+                        Console.Clear();
                         break;
 
-                    case "-":
-                        if (myQueue.Count > 0)
-                        {
-                            Console.WriteLine($"{myQueue.Dequeue()} gets expedited and leaves the line.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("The line is currently empty");
-                        }
+                    case '-':
+                        examineQueue.RemoveFromQueue();
+
+                        Console.Clear();
                         break;
 
-                    case "0":
+                    case 'Q':
                         quit = true;
                         Console.Clear();
                         break;
@@ -206,6 +186,33 @@ namespace SkalProj_Datastrukturer_Minne
                 }
 
             } while (!quit);
+        }
+
+        private static char InputCheck()
+        {
+            char input = ' ';
+
+            try
+            {
+                input = Console.ReadLine()[0];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.Clear();
+                Console.WriteLine("Please enter some input!");
+            }
+
+            return input;
+        }
+
+        private static void ExamineQueueInfo()
+        {
+            Console.WriteLine("Add a person to the queue by typing '+' then the name");
+            Console.WriteLine("Remove a person from the queue by typing '-'");
+            Console.WriteLine("----------------------------------");
+            Console.WriteLine("Type 'Q' to return to Menu");
+
+            Console.WriteLine("\nICA has opened and the checkout is empty!");
         }
 
         /// <summary>
@@ -334,7 +341,7 @@ namespace SkalProj_Datastrukturer_Minne
                     case '}':
                         if (lastOpen.Count == 0 || lastOpen.Pop() != '{') return false;
                         break;
-                    case '>': 
+                    case '>':
                         if (lastOpen.Count == 0 || lastOpen.Pop() != '<') return false;
                         break;
 
