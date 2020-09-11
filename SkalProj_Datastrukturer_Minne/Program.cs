@@ -102,59 +102,51 @@ namespace SkalProj_Datastrukturer_Minne
             // Question 5: When you know the number of elements needed.
 
             Console.Clear();
+            ExamineList examine = new ExamineList();
+
             bool quit = false;
-
-            List<string> theList = new List<string>();
-            Console.WriteLine("Add a name by typing '+' then the name");
-            Console.WriteLine("Remove a name by typing '-' then the name");
-            Console.WriteLine("Type '0' to return to Menu");
-
-
+            
             do
             {
-                string input = Console.ReadLine();
-                char nav = input[0];
-                string value = input.Substring(1);
+                Console.WriteLine("Type '+' to add a name to the list");
+                Console.WriteLine("Type '-' to remove a name from the list");
+                Console.WriteLine("----------------------------------");
+                Console.WriteLine("Type 'Q' to return to Menu");
 
-                switch (nav)
+                char input = ' ';
+
+                try
                 {
-                    case '+':
-                        theList.Add(value);
-
-                        // Count && Capacity of the List
-                        Console.WriteLine($"List Capacity: {theList.Capacity}");
-                        Console.WriteLine($"List Count: {theList.Count}");
-                        break;
-
-                    case '-':
-                        var name = theList
-                            .Where(n => n == value);
-
-                        if (theList.Remove(name.FirstOrDefault()))
-                        {
-                            Console.WriteLine($"{value} removed from the list");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"{value} was not in the list");
-                        }
-
-                        // Count && Capacity of the List
-                        Console.WriteLine($"List Capacity: {theList.Capacity}");
-                        Console.WriteLine($"List Count: {theList.Count}");
-
-                        break;
-
-                    case '0':
-                        quit = true;
-                        Console.Clear();
-                        break;
-
-                    default:
-                        Console.WriteLine("Use '+' or '-'");
-                        break;
+                    input = Console.ReadLine()[0];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter some input!");
                 }
 
+                switch (input)
+                {
+                    case '+':
+                        Console.WriteLine("Add names to the list");
+                        examine.AddToList();
+
+                        Console.Clear();
+                        break;
+                    case '-':
+                        Console.WriteLine("Remove names from the list");
+                        examine.RemoveFromList();
+
+                        Console.Clear();
+                        break;
+                    case 'Q':
+                        Console.Clear();
+                        quit = true;
+                        break;
+                    default:
+                        Console.WriteLine("Not a valid command");
+                        break;
+                }
             } while (!quit);
         }
 
@@ -182,18 +174,17 @@ namespace SkalProj_Datastrukturer_Minne
             do
             {
                 string input = Console.ReadLine();
-                char nav = input[0];
                 string value = input.Substring(1);
 
-                switch (nav)
+                switch (input)
                 {
-                    case '+':
+                    case "+":
                         myQueue.Enqueue(value);
 
                         Console.WriteLine($"{value} stands in line.");
                         break;
 
-                    case '-':
+                    case "-":
                         if (myQueue.Count > 0)
                         {
                             Console.WriteLine($"{myQueue.Dequeue()} gets expedited and leaves the line.");
@@ -204,7 +195,7 @@ namespace SkalProj_Datastrukturer_Minne
                         }
                         break;
 
-                    case '0':
+                    case "0":
                         quit = true;
                         Console.Clear();
                         break;
@@ -239,16 +230,15 @@ namespace SkalProj_Datastrukturer_Minne
             do
             {
                 string input = Console.ReadLine();
-                char nav = input[0];
                 char[] value = input.Substring(1).ToCharArray();
 
-                switch (nav)
+                switch (input)
                 {
-                    case '+':
+                    case "+":
                         ReverseText(value);
                         break;
 
-                    case '0':
+                    case "0":
                         quit = true;
                         Console.Clear();
                         break;
@@ -295,12 +285,11 @@ namespace SkalProj_Datastrukturer_Minne
             do
             {
                 string input = Console.ReadLine();
-                char nav = input[0];
                 string value = input.Substring(1);
 
-                switch (nav)
+                switch (input)
                 {
-                    case '+':
+                    case "+":
                         if (value.Length == 0)
                         {
                             Console.WriteLine($"Type in text");
@@ -315,7 +304,7 @@ namespace SkalProj_Datastrukturer_Minne
                         }
                         break;
 
-                    case '0':
+                    case "0":
                         quit = true;
                         Console.Clear();
                         break;
