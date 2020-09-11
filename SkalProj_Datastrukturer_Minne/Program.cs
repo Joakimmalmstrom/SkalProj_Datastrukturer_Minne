@@ -276,35 +276,29 @@ namespace SkalProj_Datastrukturer_Minne
              */
 
             Console.Clear();
-            bool quit = false;
 
-            Console.WriteLine("Type '+' and then your text with checked paranthesis");
-            Console.WriteLine("Type '0' to return to Menu");
+            CheckParanthesis checkParanthesis = new CheckParanthesis();
+            bool quit = false;
 
             do
             {
-                string input = Console.ReadLine();
-                string value = input.Substring(1);
+                Console.WriteLine("Type '+' to enter Check Paranthesis Mode");
+                Console.WriteLine("----------------------------------");
+                Console.WriteLine("Type 'Q' to return to Menu");
+
+                char input = InputCheck();
 
                 switch (input)
                 {
-                    case "+":
-                        if (value.Length == 0)
-                        {
-                            Console.WriteLine($"Type in text");
-                        }
-                        else if (isWellFormatted(value))
-                        {
-                            Console.WriteLine($"{value} is well formatted");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"{value} is NOT well formatted");
-                        }
+                    case '+':
+                        checkParanthesis.isWellFormatted();
+
+                        Console.Clear();
                         break;
 
-                    case "0":
+                    case 'Q':
                         quit = true;
+
                         Console.Clear();
                         break;
 
@@ -314,37 +308,6 @@ namespace SkalProj_Datastrukturer_Minne
                 }
 
             } while (!quit);
-        }
-
-        public static bool isWellFormatted(string text)
-        {
-            Stack<char> lastOpen = new Stack<char>();
-
-            foreach (var c in text)
-            {
-                switch (c)
-                {
-                    case ')':
-                        if (lastOpen.Count == 0 || lastOpen.Pop() != '(') return false;
-                        break;
-                    case ']':
-                        if (lastOpen.Count == 0 || lastOpen.Pop() != '[') return false;
-                        break;
-                    case '}':
-                        if (lastOpen.Count == 0 || lastOpen.Pop() != '{') return false;
-                        break;
-                    case '>':
-                        if (lastOpen.Count == 0 || lastOpen.Pop() != '<') return false;
-                        break;
-
-                    case '(': lastOpen.Push(c); break;
-                    case '[': lastOpen.Push(c); break;
-                    case '{': lastOpen.Push(c); break;
-                    case '<': lastOpen.Push(c); break;
-                }
-            }
-            if (lastOpen.Count == 0) return true;
-            else return false;
         }
 
         public static void RecursiveEvenApp()
