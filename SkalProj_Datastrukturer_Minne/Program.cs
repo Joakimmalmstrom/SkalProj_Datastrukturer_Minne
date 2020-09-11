@@ -177,6 +177,7 @@ namespace SkalProj_Datastrukturer_Minne
 
                     case 'Q':
                         quit = true;
+
                         Console.Clear();
                         break;
 
@@ -207,12 +208,11 @@ namespace SkalProj_Datastrukturer_Minne
 
         private static void ExamineQueueInfo()
         {
-            Console.WriteLine("Add a person to the queue by typing '+' then the name");
-            Console.WriteLine("Remove a person from the queue by typing '-'");
+            Console.WriteLine("ICA has opened and the checkout is empty!\n");
+            Console.WriteLine("Type '+' to enter add to queue mode");
+            Console.WriteLine("Type '-' to enter remove queue mode");
             Console.WriteLine("----------------------------------");
             Console.WriteLine("Type 'Q' to return to Menu");
-
-            Console.WriteLine("\nICA has opened and the checkout is empty!");
         }
 
         /// <summary>
@@ -229,23 +229,25 @@ namespace SkalProj_Datastrukturer_Minne
             // Question 1: Then the first person that gets added to the line is the last one to go. The queue system gets reversed.
 
             Console.Clear();
-            bool quit = false;
 
-            Console.WriteLine("Type '+' and then the text you want to reverse");
-            Console.WriteLine("Type '0' to return to Menu");
+            ExamineStack examineStack = new ExamineStack();
+            bool quit = false;
 
             do
             {
-                string input = Console.ReadLine();
-                char[] value = input.Substring(1).ToCharArray();
+                ExamineStackInfo();
+
+                char input = InputCheck();
 
                 switch (input)
                 {
-                    case "+":
-                        ReverseText(value);
+                    case '+':
+                        examineStack.ReverseText();
+
+                        Console.Clear();
                         break;
 
-                    case "0":
+                    case 'Q':
                         quit = true;
                         Console.Clear();
                         break;
@@ -257,22 +259,12 @@ namespace SkalProj_Datastrukturer_Minne
 
             } while (!quit);
         }
-        private static void ReverseText(char[] text)
+
+        private static void ExamineStackInfo()
         {
-            Stack stack = new Stack();
-
-            foreach (var c in text)
-            {
-                stack.Push(c);
-            }
-
-            while (stack.Count != 0)
-            {
-                Console.Write($"{stack.Pop()}");
-            }
-
-            Console.WriteLine();
-
+            Console.WriteLine("Type '+' to enter Reverse Text Mode");
+            Console.WriteLine("----------------------------------");
+            Console.WriteLine("Type 'Q' to return to Menu");
         }
 
         static void CheckParanthesis()
