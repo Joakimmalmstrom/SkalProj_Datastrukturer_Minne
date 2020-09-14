@@ -6,8 +6,11 @@ namespace SkalProj_Datastrukturer_Minne
 {
     internal class CheckParanthesis
     {
+        // -- TO DO --
+        // TESTA MED EN DICTIONARY!
         private Stack<char> stack = new Stack<char>();
         public int Count { get { return stack.Count; } }
+
 
         public void isWellFormatted()
         {
